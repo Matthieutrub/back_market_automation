@@ -1,4 +1,4 @@
-describe('test global page display', async  () => {
+describe('Website need to be correctly display', async  () => {
     let page;
 
     before(async () => { /* before hook for mocha testing */
@@ -11,17 +11,20 @@ describe('test global page display', async  () => {
         await page.close();
     });
 
-    it('should display title', async () => { /* simple test case */
-        const titleSelector = 'h1.a-title.h5.first-title';
-        const loginFramesSelector = '.omb_login';
+    it('should display title', async () => {
+        const titleSelector = "//h1[contains(., 'Ola, qui va là ?')]";
 
-        title = await page.$(titleSelector);
-        loginFrames = await page.$$(loginFramesSelector);
-
-        console.log(title)
-        console.log(loginFrames)
+        title = await page.$x(titleSelector);
 
         expect(title).to.be.not.null;
+        expect(title.length).to.equal(1);
+    });
+    it('should display two frames for register and login', async () => {
+        const loginFramesSelector = '.omb_login';
+
+        loginFrames = await page.$$(loginFramesSelector);
+
         expect(loginFrames).to.be.not.null;
+        expect(loginFrames.length).to.equal(2);
     });
 });
