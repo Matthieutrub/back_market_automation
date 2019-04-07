@@ -14,7 +14,7 @@ describe('Website need to be correctly display', async  () => {
     it('should display title', async () => {
         const titleSelector = "//h1[contains(., 'Ola, qui va là ?')]";
 
-        title = await page.$x(titleSelector);
+        const title = await page.$x(titleSelector);
 
         expect(title).to.be.not.null;
         expect(title.length).to.equal(1);
@@ -22,7 +22,7 @@ describe('Website need to be correctly display', async  () => {
     it('should display two frames for register and login', async () => {
         const loginFramesSelector = '.omb_login';
 
-        loginFrames = await page.$$(loginFramesSelector);
+        const loginFrames = await page.$$(loginFramesSelector);
 
         expect(loginFrames).to.be.not.null;
         expect(loginFrames.length).to.equal(2);

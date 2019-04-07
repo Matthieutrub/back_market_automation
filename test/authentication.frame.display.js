@@ -14,7 +14,7 @@ describe('Authentication frame need to be correctly display', async  () => {
     it('should display sub-title', async () => {
         const subtitleSelector = "//h3[contains(., 'Déjà Backer ?')]";
 
-        subtitle = await page.$x(subtitleSelector);
+        const subtitle = await page.$x(subtitleSelector);
 
         expect(subtitle).to.be.not.null;
         expect(subtitle.length).to.equal(1);
@@ -24,20 +24,30 @@ describe('Authentication frame need to be correctly display', async  () => {
         const passwordSelector = "#id_password";
         const buttonSelector = "//button[contains(., 'Welcome back !')]";
 
-        username = await page.$(usernameSelector);
-        password = await page.$(passwordSelector);
-        button = await page.$x(buttonSelector);
+        const emailTextExpected = 'Adresse email';
+        const passwordTextExpected = 'Mot de passe';
 
-        expect(username).to.be.not.null;
-        expect(password).to.be.not.null;
-        expect(button.length).to.equal(1);
+        const usernameField = await page.$(usernameSelector);
+        const passwordField = await page.$(passwordSelector);
+        const confirmButton = await page.$x(buttonSelector);
+
+        expect(usernameField).to.be.not.null;
+        expect(passwordField).to.be.not.null;
+        expect(confirmButton.length).to.equal(1);
+
+        const emailText = await page.evaluate(() =>     document.getElementById('id_username').placeholder)
+        const passwordText = await page.evaluate(() =>     document.getElementById('id_password').placeholder)
+
+
+        expect(emailText).to.equal(emailTextExpected)
+        expect(passwordText).to.equal(passwordTextExpected)
     });
     it('should display the link to password reset', async () => {
         const resetSelector = "//a[contains(., 'Mot de passe oublié ?')]";
 
-        reset = await page.$x(resetSelector);
+        const resetLink = await page.$x(resetSelector);
 
-        expect(reset).to.be.not.null;
-        expect(reset.length).to.equal(1);
+        expect(resetLink).to.be.not.null;
+        expect(resetLink.length).to.equal(1);
     });
 });
