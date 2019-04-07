@@ -10,12 +10,14 @@ const opts = {
 };
 
 // expose variables
-before (async function () {
+before (async () => {
+  console.log('Before All Test');
   global.expect = expect;
   global.browser = await puppeteer.launch(opts);
 });
 
 // close browser and reset global variables
-after (function () {
+after ( () => {
+  console.log('After All Test');
   browser.close();
 });
