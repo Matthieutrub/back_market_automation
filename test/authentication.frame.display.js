@@ -35,12 +35,12 @@ describe('Authentication frame need to be correctly display', async  () => {
         expect(passwordField).to.be.not.null;
         expect(confirmButton.length).to.equal(1);
 
-        const emailText = await page.evaluate(() =>     document.getElementById('id_username').placeholder)
-        const passwordText = await page.evaluate(() =>     document.getElementById('id_password').placeholder)
+        const emailText = await page.evaluate(() =>     document.getElementById('id_username').placeholder);
+        const passwordText = await page.evaluate(() =>     document.getElementById('id_password').placeholder);
 
 
-        expect(emailText).to.equal(emailTextExpected)
-        expect(passwordText).to.equal(passwordTextExpected)
+        expect(emailText).to.equal(emailTextExpected);
+        expect(passwordText).to.equal(passwordTextExpected);
     });
     it('should display the link to password reset', async () => {
         const resetSelector = "//a[contains(., 'Mot de passe oublié ?')]";

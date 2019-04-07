@@ -34,12 +34,12 @@ describe('Make sure that we can not authenticate without proper information', as
         for (var i = 0; i < badEmail.length; i++){
 
           await page.type(usernameSelector, badEmail[i]);
-          await delay(500)
+          await delay(500);
           if (confirmButton) {
             await confirmButton.click();
           }
-          await delay(1000)
-          expect(page.url()).to.equal("https://www.backmarket.fr/register")
+          await delay(1000);
+          expect(page.url()).to.equal("https://www.backmarket.fr/register");
 
           await page.click(usernameSelector);
           await page.keyboard.down('End'); // End jumps right the end of the input string
@@ -52,37 +52,45 @@ describe('Make sure that we can not authenticate without proper information', as
     });
 
     it('can not be authenticate with the wrong combination', async () => {
-      const usernameText = "test.trublin@gmail.com"
-      const wrongUsernameText = "trublin@gmail.com"
-      const wrongPasswordText = "motdepasse"
+      const usernameText = "test.trublin@gmail.com";
+      const wrongUsernameText = "trublin@gmail.com";
+      const wrongPasswordText = "motdepasse";
 
       await page.type(usernameSelector, wrongUsernameText);
-      await delay(500)
+      await delay(500);
       await page.type(passwordSelector, wrongPasswordText);
-      await delay(500)
-      const [confirmButton] = await page.$x(buttonSelector);
+      await delay(500);
+      let [confirmButton] = await page.$x(buttonSelector);
       if (confirmButton) {
         await confirmButton.click();
       }
-      await delay(1000)
-      expect(page.url()).to.equal("https://www.backmarket.fr/register")
+      await delay(1000);
+      expect(page.url()).to.equal("https://www.backmarket.fr/register");
+      const errorMessageSelector = "//div[contains(., 'Mauvaise combinaison email/mot de passe')]";
+      let errorMessage = await page.$x(errorMessageSelector);
+      expect(errorMessage).to.be.not.null;
+      expect(errorMessage.length).to.be.at.least(1);
+      await delay(1000);
 
       await page.click(usernameSelector);
       await page.keyboard.down('End'); // End jumps right the end of the input string
       for (var j = 0; j < wrongUsernameText.length; j++){
         await page.keyboard.down('Backspace');
       }
-      await delay(500)
+      await delay(500);
 
       await page.type(usernameSelector, usernameText);
-      await delay(500)
-      await page.type(passwordSelector, wrongPasswordText);
-      await delay(500)
+      await delay(500);
+      [confirmButton] = await page.$x(buttonSelector);
       if (confirmButton) {
         await confirmButton.click();
       }
-      await delay(1000)
-      expect(page.url()).to.equal("https://www.backmarket.fr/register")
+      await delay(1000);
+      expect(page.url()).to.equal("https://www.backmarket.fr/register");
+      errorMessage = await page.$x(errorMessageSelector);
+      expect(errorMessage).to.be.not.null;
+      expect(errorMessage.length).to.be.at.least(1);
+      await delay(1000);
     });
 
 });
