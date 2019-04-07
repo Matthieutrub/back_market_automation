@@ -35,7 +35,6 @@ describe('Make sure that we can authenticate when we enter the correct informati
     });
 
     it('can be authenticate with the use of the cursor', async () => {
-        //const confirmButton = await page.$x(buttonSelector);
 
         page.click(usernameSelector);
         await delay(500)
@@ -45,9 +44,9 @@ describe('Make sure that we can authenticate when we enter the correct informati
         await delay(500)
         await page.keyboard.type(passwordText);
         await delay(500)
-        const [button] = await page.$x(buttonSelector);
-        if (button) {
-            await button.click();
+        const [confirmButton] = await page.$x(buttonSelector);
+        if (confirmButton) {
+            await confirmButton.click();
         }
         await delay(5000)
     });
