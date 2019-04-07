@@ -4,7 +4,7 @@ describe('Authentication frame need to be correctly display', async  () => {
     before(async () => { /* before hook for mocha testing */
         page = await browser.newPage();
         await page.goto('https://www.backmarket.fr/register');
-        await page.setViewport( { width: 1920, height: 1040} );
+        //await page.setViewport( { width: 1920, height: 1040} );
     });
 
     after(async function () { /* after hook for mocah testing */

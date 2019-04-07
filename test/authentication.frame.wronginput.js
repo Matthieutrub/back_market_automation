@@ -13,7 +13,7 @@ describe('Make sure that we can not authenticate without proper information', as
     beforeEach(async () => { /* before hook for mocha testing */
         page = await browser.newPage();
         await page.goto('https://www.backmarket.fr/register');
-        await page.setViewport( { width: 1920, height: 1040} );
+        //await page.setViewport( { width: 1920, height: 1040} );
     });
 
     afterEach(async function () { /* after hook for mocah testing */
@@ -28,18 +28,27 @@ describe('Make sure that we can not authenticate without proper information', as
     });
 
     it('can detect wrong email format', async () => {
-        var badEmailArray = ['test.trublingmail.com', 'test.trublin@gmail@com', '@gmail.com'];
-        const [confirmButton] = await page.$x(buttonSelector);
+        var badEmail = ['test.trublingmail.com', 'test.trublin@gmail@com', '@gmail.com'];
+        let [confirmButton] = await page.$x(buttonSelector);
 
-        badEmailArray.forEach(function(email){
-          await page.type(usernameSelector, email);
+        for (var i = 0; i < badEmail.length; i++){
+
+          await page.type(usernameSelector, badEmail[i]);
           await delay(500)
           if (confirmButton) {
             await confirmButton.click();
           }
           await delay(1000)
-        });
-        
+
+          const input = await page.$(usernameSelector);
+          await page.click(usernameSelector);
+          await page.keyboard.down('End'); // End jumps right the end of the input string
+          while(input.value.length > 0) {
+            await page.press('Backspace');
+          }
+
+        }
+
     });
 
     it('can not be authenticate with the wrong combination', async () => {
@@ -57,11 +66,18 @@ describe('Make sure that we can not authenticate without proper information', as
       }
       await delay(5000)
 
+      const input = await page.$(usernameSelector);
+      await page.click(usernameSelector);
+      await page.keyboard.down('End'); // End jumps right the end of the input string
+      while(input.value.length > 0) {
+        await page.press('Backspace');
+      }
+      await delay(500)
+
       await page.type(usernameSelector, usernameText);
       await delay(500)
       await page.type(passwordSelector, wrongPasswordText);
       await delay(500)
-      const [confirmButton] = await page.$x(buttonSelector);
       if (confirmButton) {
         await confirmButton.click();
       }
