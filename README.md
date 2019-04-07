@@ -1,0 +1,3 @@
+# Getting start
+
+npm init
