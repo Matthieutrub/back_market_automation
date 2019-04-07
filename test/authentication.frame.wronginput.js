@@ -39,12 +39,12 @@ describe('Make sure that we can not authenticate without proper information', as
             await confirmButton.click();
           }
           await delay(1000)
+          expect(page.url()).to.equal("https://www.backmarket.fr/register")
 
-          const input = await page.$(usernameSelector);
           await page.click(usernameSelector);
           await page.keyboard.down('End'); // End jumps right the end of the input string
-          while(input.value.length > 0) {
-            await page.press('Backspace');
+          for (var j = 0; j < badEmail[i].length; j++){
+            await page.keyboard.down('Backspace');
           }
 
         }
@@ -64,13 +64,13 @@ describe('Make sure that we can not authenticate without proper information', as
       if (confirmButton) {
         await confirmButton.click();
       }
-      await delay(5000)
+      await delay(1000)
+      expect(page.url()).to.equal("https://www.backmarket.fr/register")
 
-      const input = await page.$(usernameSelector);
       await page.click(usernameSelector);
       await page.keyboard.down('End'); // End jumps right the end of the input string
-      while(input.value.length > 0) {
-        await page.press('Backspace');
+      for (var j = 0; j < wrongUsernameText.length; j++){
+        await page.keyboard.down('Backspace');
       }
       await delay(500)
 
@@ -81,7 +81,8 @@ describe('Make sure that we can not authenticate without proper information', as
       if (confirmButton) {
         await confirmButton.click();
       }
-      await delay(5000)
+      await delay(1000)
+      expect(page.url()).to.equal("https://www.backmarket.fr/register")
     });
 
 });
