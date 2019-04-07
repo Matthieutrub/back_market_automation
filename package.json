@@ -1,0 +1,26 @@
+{
+  "name": "back_market_automation",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+      "test": "mocha --recursive test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Matthieutrub/back_market_automation.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Matthieutrub/back_market_automation/issues"
+  },
+  "homepage": "https://github.com/Matthieutrub/back_market_automation#readme",
+  "dependencies": {
+    "chai": "^4.1.2",
+    "http-server": "^0.10.0",
+    "mocha": "^4.0.1",
+    "puppeteer": "^0.13.0"
+  }
+}
